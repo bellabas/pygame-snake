@@ -18,7 +18,7 @@ class Snack:
         retry = True
         while retry:
             for i in range(len(posX)-1):
-                if (posX[i] - self.size) <= self.posX <= (posX[i+1] + self.size) and (posY[i] - self.size) <= self.posY <= (posY[i+1] + self.size):
+                if (posX[i] - self.size) < self.posX < (posX[i] + self.size) and (posY[i] - self.size) < self.posY < (posY[i] + self.size):
                     self.posX = randint(0, res[0] - self.size)
                     self.posY = randint(0, res[1] - self.size)
                     break
@@ -48,28 +48,28 @@ class Player:
 
     def moving(self, res):
         if self.heading == "UP":
-            for i in range(len(self.posY) - 1):
-                self.posY[i] = self.posY[i + 1]
-                self.posX[i] = self.posX[i + 1]
-            self.posY[-1] -= self.velocity
+            del self.posX[0]
+            del self.posY[0]
+            self.posX.append(self.posX[-1])
+            self.posY.append(self.posY[-1] - self.velocity)
 
         if self.heading == "DOWN":
-            for i in range(len(self.posY) - 1):
-                self.posY[i] = self.posY[i + 1]
-                self.posX[i] = self.posX[i + 1]
-            self.posY[-1] += self.velocity
+            del self.posX[0]
+            del self.posY[0]
+            self.posX.append(self.posX[-1])
+            self.posY.append(self.posY[-1] + self.velocity)
 
         if self.heading == "LEFT":
-            for i in range(len(self.posX) - 1):
-                self.posX[i] = self.posX[i + 1]
-                self.posY[i] = self.posY[i + 1]
-            self.posX[-1] -= self.velocity
+            del self.posX[0]
+            del self.posY[0]
+            self.posY.append(self.posY[-1])
+            self.posX.append(self.posX[-1] - self.velocity)
 
         if self.heading == "RIGHT":
-            for i in range(len(self.posX) - 1):
-                self.posX[i] = self.posX[i + 1]
-                self.posY[i] = self.posY[i + 1]
-            self.posX[-1] += self.velocity
+            del self.posX[0]
+            del self.posY[0]
+            self.posY.append(self.posY[-1])
+            self.posX.append(self.posX[-1] + self.velocity)
 
         self.outOfbounds(res)
 
