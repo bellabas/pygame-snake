@@ -1,3 +1,3 @@
-# BELLAsnake
+# pygame-snake
 A little play around with pygame...  
 Making a snake game.
